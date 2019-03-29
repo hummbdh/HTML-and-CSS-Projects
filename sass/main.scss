@@ -1,0 +1,283 @@
+/*
+Normalize.css for modern look.  But browsers
+are improved so really only need to use the
+universal selector (US)
+Use US to remove default margins and paddings
+*/
+
+// Sass vars
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+$color-grey-dark: #777;
+
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+
+  /* Use 'border-box' to change box model so
+  that borders and paddings are not added to
+  the height and width of element */
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+/*
+Create fonts, style body tag, inheritance
+will apply fonts to children of body tag
+*/
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7;
+  color: $color-grey-dark;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+
+/*
+height - header element should be 95% of
+viewport height
+cover - background image will cover entire
+viewport of that element
+top - Top of background image stays
+proportionally the same (anchored).  The
+bottom may be cropped
+*/
+.header {
+  height: 95vh;
+  background-image: linear-gradient(to right bottom,
+                                    rgba($color-primary-dark,0.3),
+                                    rgba($color-primary-dark,0.8)),
+                                    url('../img/hero.jpg');
+// rgba(126,213,111,0.3), rgba(40,180,131,0.8))
+
+
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  position: relative;
+}
+
+/*
+absolute - Position allows movement of
+elements across page/within elements
+  - Top, left, right, bottom
+  - 40px start point (origin/ref) is a parent
+    element that has its position set
+    to relative --> .header: relative
+                --> .logo-box: absolute
+*/
+.header__logo-box {
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+}
+
+.header__logo {
+  height: 3.5rem;
+}
+
+.header__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  text-align: center;
+
+  /*
+  translate - operates relative to element itself,
+  not in relation to parent element. Ensures element
+  is exactly centered
+    - half of the width to the left side
+    = half of the height to the top
+  */
+  transform: translate(-50%, -50%);
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  backface-visibility: hidden;
+  margin-bottom: 6rem;
+}
+
+.heading-primary--main {
+  display: block;
+  font-size: 6rem;
+  font-weight: 400;
+  letter-spacing: 3.5rem;
+
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+}
+
+.heading-primary--sub {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1.75rem;
+  animation: moveInRight 1s ease-out;
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-10rem);
+  }
+
+  80% {
+    transform: translateX(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/*
+psuedo class special state of a selector,
+used to style classes under special
+conditions
+.btn:link - special state of a selector
+when it is an anchor element
+inline-block - Always used when wanting default
+heights, padding, and width added to elements
+"Implements box model"
+*/
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  position: relative;
+  border-radius: 10rem;
+
+  /* transition property must be on
+  initial state, by default */
+  transition: all 0.5s;
+  font-size: 1.6rem;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10rem 20rem rgba(0,0,0,.2);
+
+}
+
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+}
+
+.btn--white {
+  background-color: #fff;
+  color: $color-grey-dark;
+}
+
+/*
+Psuedo Elements - Allow for styling of specific
+parts of different elements (i.e. make first letter
+of word green)
+                - Make zoom out of white button to
+infinity
+                - Trick is to add an element exactly
+like the button that is already created and we want
+to alter, but put this element directly behind the
+button.  When we hover out of the button the Psuedo
+element goes back behind the button.  The psuedo
+element is effectively treated as a child of the
+button.
+*/
+.btn::after {
+ 
+  /* content and display property is always necessary
+     for psuedo elements */
+  content: "";
+  display: inline-block;
+
+  /* psuedo element '.btn::after' would have
+     100% of the width of the button */
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+}
+
+.btn--white::after {
+  background-color: #fff;
+}
+
+/*
+On hovering over the button, enable different styles
+*/
+.btn:hover::after {
+
+  /*
+  scale - change the size of the element
+  */
+  transform: scaleX(1.4) scaleY(1.6);
+
+  opacity: 0;
+  /* Put transition in inital state: '.btn::after' */
+}
+
+/*
+New class created on button to implement button
+animation
+*/
+.btn--animated::after {
+
+  /*
+  animation: 'animation_name' 'animation_duration'
+  'animation_timing_function' 'animation_delay'
+  */
+  animation: moveInBottom .5s ease-out .75;
+
+  /*
+  b/c initially stays visibile and then animation
+  starts, automatically applies styles at 0% before
+  animation starts
+  */
+  animation-fill-mode: backwards;
+}
