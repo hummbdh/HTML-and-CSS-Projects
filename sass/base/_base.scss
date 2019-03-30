@@ -1,0 +1,27 @@
+/* partial sass file, used for basic definitions
+   project boiler plate */
+
+   *,
+   *::after,
+   *::before {
+     margin: 0px;
+     padding: 0px;
+
+     /* Use 'border-box' to change box model so
+     that borders and paddings are not added to
+     the height and width of element */
+     box-sizing: inherit;
+   }
+
+   html {
+     // defines what 1rem is, equal to 10px
+     font-size: 62.5%;
+   }
+
+   /*
+   Create fonts, style body tag, inheritance
+   will apply fonts to children of body tag
+   */
+   body {
+     box-sizing: border-box;
+   }

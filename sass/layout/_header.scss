@@ -1,0 +1,62 @@
+
+/*
+height - header element should be 95% of
+viewport height
+cover - background image will cover entire
+viewport of that element
+top - Top of background image stays
+proportionally the same (anchored).  The
+bottom may be cropped
+*/
+.header {
+  height: 95vh;
+  background-image: linear-gradient(to right bottom,
+                                    rgba($color-primary-dark,0.3),
+                                    rgba($color-primary-dark,0.8)),
+                                    url('../img/hero.jpg');
+// rgba(126,213,111,0.3), rgba(40,180,131,0.8))
+
+
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  position: relative;
+
+  /* '&' used to copy part of a selector,
+     and used for nesting
+     In this case, & = ".header" */
+  &__logo-box {
+    /*
+    absolute - Position allows movement of
+    elements across page/within elements
+      - Top, left, right, bottom
+      - 40px start point (origin/ref) is a parent
+        element that has its position set
+        to relative --> .header: relative
+                    --> .logo-box: absolute
+    */
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+
+  &__logo {
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    text-align: center;
+
+    /*
+    translate - operates relative to element itself,
+    not in relation to parent element. Ensures element
+    is exactly centered
+      - half of the width to the left side
+      = half of the height to the top
+    */
+    transform: translate(-50%, -50%);
+  }
+}
