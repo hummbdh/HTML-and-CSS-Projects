@@ -1,0 +1,50 @@
+.composition {
+
+  position: relative;
+
+  &__photo {
+    width: 55%;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
+    border-radius: 1rem;
+    z-index: 3;
+    transition: all .2s; //'all': transition all of the properties
+
+    /*
+       places images according to a reference. This reference
+       is the first parent that isset to something.
+
+       In this case, we want the reference to be the composition
+       so we want it positioned to the composition element, we set
+       the position of the composition element to relative
+
+       Absolute sets images at initial point of (0,0), the
+       top left corner of the element is the origin
+       (Lecture 37 - 6:50)
+    */
+    position: absolute;
+
+    &--p1 {
+      left: 0;
+      top: -2rem;
+    }
+
+    &--p2 {
+      right: 0;
+      top: 2rem;
+    }
+
+    &--p3 {
+      left: 20%;
+      top: 10rem;
+    }
+
+    &:hover {
+
+      // used for whitespace between green border and image
+      outline: 1.5rem solid $color-primary;
+      transform: scale(1.05);
+      box-shadow: 0 2.5rem 4rem rgba($color-black, .5);
+      z-index: 4;
+    }
+  }
+}
